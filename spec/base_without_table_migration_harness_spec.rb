@@ -44,12 +44,12 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       validate :arbitrary_condition
 
       def self.name
-        "BaseWithoutTableInstance"
+        'BaseWithoutTableInstance'
       end
 
       def arbitrary_condition
         return if external_id && external_id.even?
-        errors.add(:external_id, "cannot be odd")
+        errors.add(:external_id, 'cannot be odd')
       end
     end
 
@@ -68,10 +68,10 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       belongs_to :model
 
       def self.name
-        "BaseWithoutTableInstance"
+        'BaseWithoutTableInstance'
       end
     end
-    model = Model.create!(description: "Something")
+    model = Model.create!(description: 'Something')
 
     base_without_table = base_without_table_class.new(
       model_id: model.id
@@ -85,10 +85,10 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       column :model_description, :text
 
       def self.name
-        "BaseWithoutTableInstance"
+        'BaseWithoutTableInstance'
       end
     end
-    Model.create!(description: "Something")
+    Model.create!(description: 'Something')
 
     base_without_table = base_without_table_class.find_by_sql(<<-SQL)
     SELECT description AS model_description FROM models
@@ -102,12 +102,33 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       column :is_something, :boolean
 
       def self.name
-        "BaseWithoutTableInstance"
+        'BaseWithoutTableInstance'
       end
     end
 
     base_without_table = base_without_table_class.new(is_something: true)
 
     expect(base_without_table.is_something?).to be(true)
+  end
+
+  it 'can use ActiveRecord callbacks' do
+    base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+      column :user_set, :text
+      column :automatically_set, :text
+
+      after_initialize :automatically_set_attributes
+
+      def self.name
+        'BaseWithoutTableInstance'
+      end
+
+      def automatically_set_attributes
+        self.automatically_set = 'Automatic'
+      end
+    end
+
+    base_without_table = base_without_table_class.new(user_set: 'Value')
+
+    expect(base_without_table.automatically_set).to eq('Automatic')
   end
 end
