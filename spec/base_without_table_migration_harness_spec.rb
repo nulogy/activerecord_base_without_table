@@ -79,4 +79,35 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
 
     expect(base_without_table.model).to eq(model)
   end
+
+  it 'allows construction of records given a SQL statement' do
+    base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+      column :model_description, :text
+
+      def self.name
+        "BaseWithoutTableInstance"
+      end
+    end
+    Model.create!(description: "Something")
+
+    base_without_table = base_without_table_class.find_by_sql(<<-SQL)
+    SELECT description AS model_description FROM models
+    SQL
+
+    expect(base_without_table.first.model_description).to eq('Something')
+  end
+
+  it 'generates predicates for boolean columns' do
+    base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+      column :is_something, :boolean
+
+      def self.name
+        "BaseWithoutTableInstance"
+      end
+    end
+
+    base_without_table = base_without_table_class.new(is_something: true)
+
+    expect(base_without_table.is_something?).to be(true)
+  end
 end
