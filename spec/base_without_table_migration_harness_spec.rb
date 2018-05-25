@@ -111,24 +111,49 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     expect(base_without_table.is_something?).to be(true)
   end
 
-  it 'can use ActiveRecord callbacks' do
-    base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
-      column :user_set, :text
-      column :automatically_set, :text
+  context 'when using ActiveRecord callbacks' do
+    it 'can use after_initialize' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :user_set, :text
+        column :automatically_set, :text
 
-      after_initialize :automatically_set_attributes
+        after_initialize :automatically_set_attributes
 
-      def self.name
-        'BaseWithoutTableInstance'
+        def self.name
+          'BaseWithoutTableInstance'
+        end
+
+        def automatically_set_attributes
+          self.automatically_set = 'Automatic'
+        end
       end
 
-      def automatically_set_attributes
-        self.automatically_set = 'Automatic'
-      end
+      base_without_table = base_without_table_class.new(user_set: 'Value')
+
+      expect(base_without_table.automatically_set).to eq('Automatic')
     end
 
-    base_without_table = base_without_table_class.new(user_set: 'Value')
+    it 'can use before_validation' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :number, :decimal
 
-    expect(base_without_table.automatically_set).to eq('Automatic')
+        before_validation :default_number_to_0
+        validates_numericality_of :number
+
+        def self.name
+          'BaseWithoutTableInstance'
+        end
+
+        def default_number_to_0
+          return if number
+          self.number = 0
+        end
+      end
+
+      base_without_table = base_without_table_class.new
+
+      expect(base_without_table).to be_valid
+      expect(base_without_table.number).to eq(0)
+    end
   end
 end
