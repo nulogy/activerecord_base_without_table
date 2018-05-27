@@ -182,6 +182,22 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     expect(base_without_table.second_model).to eq(second_model)
   end
 
+  it 'can be associated to other ActiveRecords by explicitly specifying the foreign key attribute' do
+    base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+      column :my_model_id, :integer
+      belongs_to :model, foreign_key: 'my_model_id'
+
+      def self.name
+        'BaseWithoutTableInstance'
+      end
+    end
+    model = Model.create!(description: 'First model')
+
+    base_without_table = base_without_table_class.new(my_model_id: model.id)
+
+    expect(base_without_table.model).to eq(model)
+  end
+
   it 'allows construction of records given a SQL statement' do
     base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
       column :model_description, :text
