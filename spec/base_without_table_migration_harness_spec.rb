@@ -34,6 +34,16 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     )
   end
 
+  it 'allows specification of default values for attributes' do
+    base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+      column :number, :integer, 1
+    end
+
+    instance = base_without_table_class.new
+
+    expect(instance.number).to eq(1)
+  end
+
   context 'when enforcing validations' do
     it 'can enforce presence of an attribute' do
       base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
