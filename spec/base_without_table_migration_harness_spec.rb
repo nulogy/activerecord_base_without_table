@@ -93,6 +93,24 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       expect(invalid_instance).to_not be_valid
       expect(valid_instance).to be_valid
     end
+
+    it 'can enforce the numericality of attributes' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :external_id, :integer
+
+        validates_numericality_of :external_id
+
+        def self.name
+          'BaseWithoutTableInstance'
+        end
+      end
+
+      invalid_instance = base_without_table_class.new(external_id: "NaN")
+      valid_instance = base_without_table_class.new(external_id: "42")
+
+      expect(invalid_instance).to_not be_valid
+      expect(valid_instance).to be_valid
+    end
   end
   
   it 'can be associated to other ActiveRecords' do
