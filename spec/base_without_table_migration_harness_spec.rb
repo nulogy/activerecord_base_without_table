@@ -35,34 +35,6 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
   end
 
   context 'when enforcing validations' do
-    it 'can enforce validations' do
-      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
-        column :external_id, :integer
-        column :code, :text
-
-        validates_presence_of :external_id
-        validates_inclusion_of :code, in: ['Code 1', 'Code 2']
-        validate :arbitrary_condition
-
-        def self.name
-          'BaseWithoutTableInstance'
-        end
-
-        def arbitrary_condition
-          return if external_id && external_id.even?
-          errors.add(:external_id, 'cannot be odd')
-        end
-      end
-
-      invalid_instance = base_without_table_class.new(external_id: nil, code: 'INVALID')
-      invalid_instance_2 = base_without_table_class.new(external_id: 1, code: 'Code 1')
-      valid_instance = base_without_table_class.new(external_id: 2, code: 'Code 2')
-
-      expect(invalid_instance).to_not be_valid
-      expect(invalid_instance_2).to_not be_valid
-      expect(valid_instance).to be_valid
-    end
-
     it 'can enforce presence of an attribute' do
       base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
         column :external_id, :integer
