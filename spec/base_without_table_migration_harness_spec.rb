@@ -112,22 +112,43 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       expect(valid_instance).to be_valid
     end
 
-    it 'can enforce the numericality of attributes' do
-      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
-        column :external_id, :integer
+    context 'when validating numericality' do
+      it 'can enforce the numericality of attributes' do
+        base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+          column :external_id, :integer
 
-        validates_numericality_of :external_id
+          validates_numericality_of :external_id
 
-        def self.name
-          'BaseWithoutTableInstance'
+          def self.name
+            'BaseWithoutTableInstance'
+          end
         end
+
+        invalid_instance = base_without_table_class.new(external_id: "NaN")
+        valid_instance = base_without_table_class.new(external_id: "42")
+
+        expect(invalid_instance).to_not be_valid
+        expect(valid_instance).to be_valid
       end
 
-      invalid_instance = base_without_table_class.new(external_id: "NaN")
-      valid_instance = base_without_table_class.new(external_id: "42")
+      it 'can enforce numericality of multiple attributes' do
+        base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+          column :first_attribute, :integer
+          column :second_attribute, :integer
 
-      expect(invalid_instance).to_not be_valid
-      expect(valid_instance).to be_valid
+          validates_numericality_of :first_attribute, :second_attribute
+
+          def self.name
+            'BaseWithoutTableInstance'
+          end
+        end
+
+        invalid_instance = base_without_table_class.new(first_attribute: "foo", second_attribute: "2")
+        valid_instance = base_without_table_class.new(first_attribute: "1", second_attribute: "2")
+
+        expect(invalid_instance).to_not be_valid
+        expect(valid_instance).to be_valid
+      end
     end
 
     it 'can enforce the length of an attribute' do
