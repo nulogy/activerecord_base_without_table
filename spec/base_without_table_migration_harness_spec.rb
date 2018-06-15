@@ -361,5 +361,11 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       expect(e.name).to eq("Enoch Root")
       expect(e.salary).to eq(5000)
     end
+
+
+    it 'supports gettext translations for attribute names' do
+      expect(BaseWithoutTableTests::Employee.gettext_translation_for_attribute_name(:salary)).to eq("BaseWithoutTableTests::Employee|Salary")
+      expect(BaseWithoutTableTests::Employee.gettext_translation_for_attribute_name(:name)).to eq("BaseWithoutTableTests::Person|Name")
+    end
   end
 end
