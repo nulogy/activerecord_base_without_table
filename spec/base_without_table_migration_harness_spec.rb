@@ -342,23 +342,21 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
   end
 
   context 'migrated legacy tests' do
-    let(:person_class) do
-      Class.new(ActiveRecord::BaseWithoutTable) do
+    module BaseWithoutTableTests
+      class Person < ActiveRecord::BaseWithoutTable
         column :name, :text
         column :lucky_number, :integer, 4
 
         validates_presence_of :name
       end
-    end
 
-    let(:employee_class) do
-      Class.new(person_class) do
+      class Employee < Person
         column :salary, :integer
       end
     end
 
     it 'supports inheritance' do
-      e = employee_class.new(salary: 5000, name: "Enoch Root")
+      e = BaseWithoutTableTests::Employee.new(salary: 5000, name: "Enoch Root")
 
       expect(e.name).to eq("Enoch Root")
       expect(e.salary).to eq(5000)
