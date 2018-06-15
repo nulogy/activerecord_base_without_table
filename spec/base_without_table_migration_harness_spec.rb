@@ -149,6 +149,25 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
         expect(invalid_instance).to_not be_valid
         expect(valid_instance).to be_valid
       end
+
+      it 'can require an attribute to be greater than or equal to a given value' do
+        base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+          column :first_attribute, :integer
+
+          validates_numericality_of :first_attribute, greater_than_or_equal_to: 10
+
+          def self.name
+            'BaseWithoutTableInstance'
+          end
+        end
+
+        invalid_instance = base_without_table_class.new(first_attribute: "9")
+        valid_instance = base_without_table_class.new(first_attribute: "11")
+
+        expect(invalid_instance).to_not be_valid
+        expect(valid_instance).to be_valid
+
+      end
     end
 
     it 'can enforce the length of an attribute' do
