@@ -333,12 +333,24 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       expect(matching_records.first.model_description).to eq('Something')
     end
 
-    it 'supports specification of SQL bindings' do
+    it 'supports specification of named SQL bindings' do
       Model.create!(description: 'Find me')
       Model.create!(description: 'Ignore me')
 
       matching_records = Model.find_by_sql([<<-SQL, { description: "Find me" }])
     SELECT description AS model_description FROM models WHERE description LIKE :description
+      SQL
+
+      expect(matching_records.length).to eq(1)
+      expect(matching_records.first.model_description).to eq('Find me')
+    end
+
+    it 'supports specification of positional SQL bindings' do
+      Model.create!(description: 'Find me')
+      Model.create!(description: 'Ignore me')
+
+      matching_records = Model.find_by_sql([<<-SQL, "Find me"])
+    SELECT description AS model_description FROM models WHERE description LIKE ?
       SQL
 
       expect(matching_records.length).to eq(1)
