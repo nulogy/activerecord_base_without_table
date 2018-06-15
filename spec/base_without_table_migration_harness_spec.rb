@@ -315,21 +315,35 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     end
   end
 
-  it 'allows construction of records given a SQL statement' do
-    base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
-      column :model_description, :text
+  context 'when executing queries' do
+    it 'allows construction of records given a SQL statement' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :model_description, :text
 
-      def self.name
-        'BaseWithoutTableInstance'
+        def self.name
+          'BaseWithoutTableInstance'
+        end
       end
-    end
-    Model.create!(description: 'Something')
+      Model.create!(description: 'Something')
 
-    base_without_table = base_without_table_class.find_by_sql(<<-SQL)
+      matching_records = base_without_table_class.find_by_sql(<<-SQL)
     SELECT description AS model_description FROM models
-    SQL
+      SQL
 
-    expect(base_without_table.first.model_description).to eq('Something')
+      expect(matching_records.first.model_description).to eq('Something')
+    end
+
+    it 'supports specification of SQL bindings' do
+      Model.create!(description: 'Find me')
+      Model.create!(description: 'Ignore me')
+
+      matching_records = Model.find_by_sql([<<-SQL, { description: "Find me" }])
+    SELECT description AS model_description FROM models WHERE description LIKE :description
+      SQL
+
+      expect(matching_records.length).to eq(1)
+      expect(matching_records.first.model_description).to eq('Find me')
+    end
   end
 
   it 'generates predicates for boolean columns' do
