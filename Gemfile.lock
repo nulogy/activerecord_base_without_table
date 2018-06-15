@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    base_without_table_migration_harness (0.0.1)
+    base_without_table (0.0.1)
       rails (~> 4.2.10)
 
 GEM
@@ -128,7 +128,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  base_without_table_migration_harness!
+  base_without_table!
   byebug (= 9.0.6)
   pg (= 0.18.4)
   rspec (= 3.5.0)

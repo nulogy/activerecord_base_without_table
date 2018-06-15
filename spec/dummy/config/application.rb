@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "base_without_table_migration_harness"
+require "active_record/base_without_table"
 
 module Dummy
   class Application < Rails::Application

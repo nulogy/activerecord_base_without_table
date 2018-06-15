@@ -1,12 +1,9 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-# Maintain your gem's version:
-require "base_without_table_migration_harness/version"
-
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "base_without_table_migration_harness"
-  s.version     = BaseWithoutTableMigrationHarness::VERSION
+  s.name        = "base_without_table"
+  s.version     = "0.0.1"
   s.authors     = ["Ryan De Villa"]
   s.email       = ["ryand@nulogy.com"]
   s.homepage    = "https://nulogy.com"
