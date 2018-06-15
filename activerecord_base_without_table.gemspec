@@ -2,7 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "base_without_table"
+  s.name        = "activerecord_base_without_table"
   s.version     = "0.0.1"
   s.authors     = ["Ryan De Villa"]
   s.email       = ["ryand@nulogy.com"]
