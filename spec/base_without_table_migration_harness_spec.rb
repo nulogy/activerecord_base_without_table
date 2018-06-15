@@ -170,22 +170,40 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       end
     end
 
-    it 'can enforce the length of an attribute' do
-      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
-        column :description, :text
+    context 'when validating length' do
+      it 'can enforce the length of an attribute' do
+        base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+          column :description, :text
 
-        validates_length_of :description, maximum: 3
+          validates_length_of :description, maximum: 3
 
-        def self.name
-          'BaseWithoutTableInstance'
+          def self.name
+            'BaseWithoutTableInstance'
+          end
         end
+
+        invalid_instance = base_without_table_class.new(description: "1234")
+        valid_instance = base_without_table_class.new(description: "123")
+
+        expect(invalid_instance).to_not be_valid
+        expect(valid_instance).to be_valid
       end
 
-      invalid_instance = base_without_table_class.new(description: "1234")
-      valid_instance = base_without_table_class.new(description: "123")
+      it 'can be configured to allow nil text attributes' do
+        base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+          column :description, :text
 
-      expect(invalid_instance).to_not be_valid
-      expect(valid_instance).to be_valid
+          validates_length_of :description, maximum: 3, allow_nil: true
+
+          def self.name
+            'BaseWithoutTableInstance'
+          end
+        end
+
+        valid_instance = base_without_table_class.new(description: nil)
+
+        expect(valid_instance).to be_valid
+      end
     end
   end
   
