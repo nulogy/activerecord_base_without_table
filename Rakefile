@@ -19,7 +19,7 @@ Bundler::GemHelper.install_tasks
 begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |t|
-    t.rspec_opts = "-rbyebug"
+    t.rspec_opts = "-rbyebug --format documentation"
   end
 rescue LoadError
 end
