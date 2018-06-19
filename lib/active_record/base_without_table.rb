@@ -18,11 +18,6 @@ module ActiveRecord
 
     self.abstract_class = true
 
-    def initialize(*args)
-      self.class.define_attribute_methods
-      super(*args)
-    end
-
     class << self
       def connection
         Class.new(SimpleDelegator) do
