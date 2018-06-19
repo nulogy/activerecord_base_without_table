@@ -14,28 +14,45 @@ module ActiveRecord
   # This model can be used just like a regular model based on a table, except it will never be saved to the database.
   #
   class BaseWithoutTable < Base
+    attr_accessor :attributes
+
     self.abstract_class = true
 
-    class_attribute :columns
-    self.columns = []
-
-    def create_or_update # :nodoc:
-      errors.empty?
+    def initialize(*args)
+      self.class.define_attribute_methods
+      super(*args)
     end
 
     class << self
-      def column_defaults
-        columns.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |current, res|
-          res[current.name] = current.default
-        end
+      def connection
+        Class.new(SimpleDelegator) do
+          def schema_cache
+            Class.new do
+              def columns(*args)
+                []
+              end
+
+              def columns_hash(*args)
+                {}
+              end
+            end.new
+          end
+        end.new(super)
       end
 
-      def columns_hash
-        all_columns = add_user_provided_columns(columns)
+      def table_exists?
+        false
+      end
 
-        @columns_hash = all_columns.each_with_object(ActiveSupport::HashWithIndifferentAccess.new) do |current, res|
-          res[current.name] = current
+      def inherited(subclass)
+        subclass.define_singleton_method(:table_name) do
+          "activerecord_base_without_table_#{subclass.name}"
         end
+        super(subclass)
+      end
+
+      def attribute_names
+        _default_attributes.keys.map(&:to_s)
       end
 
       def column(name, sql_type = nil, default = nil, null = true) # :nodoc:
@@ -56,19 +73,28 @@ module ActiveRecord
 
         cast_type = "ActiveRecord::Type::#{mapped_sql_type.camelize}".constantize.new
 
-        self.columns += [ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, cast_type, mapped_sql_type, null)]
-
-        reset_column_information
+        define_attribute(name.to_s, cast_type, default: default)
       end
 
-      # Do not reset @columns
-      def reset_column_information # :nodoc:
-        generated_methods.each { |name| undef_method(name) }
-        @column_names = @columns_hash = @content_columns = @generated_methods = nil
+      def build_column_types
+        self.class.columns.reduce({}) do |acc, column|
+          acc.merge(column.name.to_s => column.sql_type_metadata)
+        end
       end
 
-      def generated_methods
-        @generated_methods ||= Set.new
+      def lookup_column_type(sql_type)
+        # This is copy-pasted from ActiveRecord::BaseWithoutTable, please find another approach.
+        mapped_sql_type = case sql_type
+                          when :datetime
+                            :date_time
+                          when :datetime_point
+                            :integer
+                          when :enumerable
+                            :value
+                          else
+                            sql_type
+                          end.to_s
+                          "::ActiveRecord::Type::#{mapped_sql_type.camelize}".constantize.new
       end
 
       def gettext_translation_for_attribute_name(attribute)
@@ -86,7 +112,7 @@ module ActiveRecord
 
       def inheritance_class_owner(attribute)
         superclass = self.superclass
-        if superclass.column_names.include?(attribute)
+        if superclass.attribute_names.include?(attribute)
           superclass.inheritance_class_owner(attribute)
         else
           self
