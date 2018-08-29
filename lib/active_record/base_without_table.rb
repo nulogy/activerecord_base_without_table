@@ -14,8 +14,6 @@ module ActiveRecord
   # This model can be used just like a regular model based on a table, except it will never be saved to the database.
   #
   class BaseWithoutTable < Base
-    attr_accessor :attributes
-
     self.abstract_class = true
 
     class << self
