@@ -395,7 +395,7 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     expect(base_without_table.is_something?).to be(true)
   end
 
-  context 'migrated legacy tests' do
+  context 'when generating translations' do
     module BaseWithoutTableTests
       class Person < ActiveRecord::BaseWithoutTable
         column :name, :text
@@ -408,14 +408,6 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
         column :salary, :integer
       end
     end
-
-    it 'supports inheritance' do
-      e = BaseWithoutTableTests::Employee.new(salary: 5000, name: "Enoch Root")
-
-      expect(e.name).to eq("Enoch Root")
-      expect(e.salary).to eq(5000)
-    end
-
 
     it 'supports gettext translations for attribute names' do
       expect(BaseWithoutTableTests::Employee.gettext_translation_for_attribute_name(:salary)).to eq("BaseWithoutTableTests::Employee|Salary")
