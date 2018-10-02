@@ -17,8 +17,7 @@
 default: &default
   host: localhost
   port: 5432
-  username: nulogy
-  password: <%= ENV['BWT_DATABASE_PASS'] || "Nulogy4Ever" %>
+  username: postgres
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
