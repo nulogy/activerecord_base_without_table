@@ -362,6 +362,23 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       expect(matching_records.length).to eq(1)
       expect(matching_records.first.model_description).to eq('Find me')
     end
+
+    it 'converts datetime columns to the `Time.zone`' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :created_at, :datetime
+
+        def self.name
+          'BaseWithoutTableInstance'
+        end
+      end
+      Model.create!
+
+      matching_records = base_without_table_class.find_by_sql(<<-SQL)
+    SELECT created_at FROM models
+      SQL
+
+      expect(matching_records.first.created_at.time_zone).to eq(Time.zone)
+    end
   end
 
   it 'generates predicates for boolean columns' do
