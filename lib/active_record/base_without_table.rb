@@ -33,6 +33,15 @@ module ActiveRecord
         end.new(super)
       end
 
+      def attributes_builder
+        decorations = attribute_type_decorations
+        Class.new(SimpleDelegator) do
+          define_method :build_from_database do |values = {}, additional_types = {}|
+            super(values, additional_types.map { |name, type| [name, decorations.apply(name, type)] }.to_h)
+          end
+        end.new(super)
+      end
+
       def table_exists?
         false
       end
