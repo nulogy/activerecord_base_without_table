@@ -20,5 +20,7 @@ module Dummy
     # config.i18n.default_locale = :de
 
     config.time_zone = 'Eastern Time (US & Canada)'
+
+    config.active_record.time_zone_aware_types = [:datetime]
   end
 end
