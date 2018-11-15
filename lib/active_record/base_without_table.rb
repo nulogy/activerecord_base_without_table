@@ -34,10 +34,9 @@ module ActiveRecord
       end
 
       def attributes_builder
-        decorations = attribute_type_decorations
         Class.new(SimpleDelegator) do
           define_method :build_from_database do |values = {}, additional_types = {}|
-            super(values, additional_types.map { |name, type| [name, decorations.apply(name, type)] }.to_h)
+            super(values, {})
           end
         end.new(super)
       end
@@ -74,8 +73,9 @@ module ActiveRecord
         end.to_s
 
         cast_type = "ActiveRecord::Type::#{mapped_sql_type.camelize}".constantize.new
+        decorated_type = attribute_type_decorations.apply(name, cast_type)
 
-        define_attribute(name.to_s, cast_type, default: default)
+        define_attribute(name.to_s, decorated_type, default: default)
       end
 
       def build_column_types
