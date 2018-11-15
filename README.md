@@ -1,6 +1,8 @@
 # ActiveRecord::BaseWithoutTable
 
 [![Build Status](https://travis-ci.org/nulogy/activerecord_base_without_table.svg?branch=master)](https://travis-ci.org/nulogy/activerecord_base_without_table)
+[![Build Status](https://travis-ci.org/nulogy/activerecord_base_without_table.svg?branch=support_rails_5)](https://travis-ci.org/nulogy/activerecord_base_without_table)
+
 
 Get the power of ActiveRecord models, including validation, without having a table in the database.
 
