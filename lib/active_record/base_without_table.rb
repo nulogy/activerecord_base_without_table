@@ -1,5 +1,12 @@
+# frozen_string_literal: true
+
+require 'active_record/attributes_builder_without_table'
+require 'active_record/connection_adapters/null_adapter'
+require 'active_record/connection_adapters/null_schema_cache'
+
 module ActiveRecord
-  # Get the power of ActiveRecord models, including validation, without having a table in the database.
+  # Get the power of ActiveRecord models, including validation, without having a
+  # table in the database.
   #
   # == Usage
   #
@@ -11,34 +18,19 @@ module ActiveRecord
   #
   #   validates_presence_of :name, :email_address, :string
   #
-  # This model can be used just like a regular model based on a table, except it will never be saved to the database.
+  # This model can be used just like a regular model based on a table, except it
+  # will never be saved to the database.
   #
   class BaseWithoutTable < Base
     self.abstract_class = true
 
     class << self
       def connection
-        Class.new(SimpleDelegator) do
-          def schema_cache
-            Class.new do
-              def columns(*args)
-                []
-              end
-
-              def columns_hash(*args)
-                {}
-              end
-            end.new
-          end
-        end.new(super)
+        ConnectionAdapters::NullAdapter.new(super)
       end
 
       def attributes_builder
-        Class.new(SimpleDelegator) do
-          define_method :build_from_database do |values = {}, additional_types = {}|
-            super(values, {})
-          end
-        end.new(super)
+        AttributesBuilderWithoutTable.new(super)
       end
 
       def table_exists?
