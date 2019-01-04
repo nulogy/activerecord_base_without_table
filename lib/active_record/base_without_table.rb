@@ -48,47 +48,29 @@ module ActiveRecord
         _default_attributes.keys.map(&:to_s)
       end
 
-      def column(name, sql_type = nil, default = nil, null = true) # :nodoc:
-        # do not use << in here. See: http://apidock.com/rails/Class/class_attribute
-
-        # This is an emulation of the Rails 4.1 runtime behaviour.
-        # Please consider rewriting once we move to Rails 5.
-        mapped_sql_type = case sql_type
-        when :datetime
-          :date_time
-        when :datetime_point
-          :integer
-        when :enumerable
-          :value
-        else
-          sql_type
-        end.to_s
-
-        cast_type = "ActiveRecord::Type::#{mapped_sql_type.camelize}".constantize.new
+      def column(name, sql_type = nil, default = nil, null = true)
+        cast_type = lookup_attribute_type(sql_type)
         decorated_type = attribute_type_decorations.apply(name, cast_type)
 
         define_attribute(name.to_s, decorated_type, default: default)
       end
 
-      def build_column_types
-        self.class.columns.reduce({}) do |acc, column|
-          acc.merge(column.name.to_s => column.sql_type_metadata)
-        end
-      end
+      def lookup_attribute_type(sql_type)
+        # This is an emulation of the Rails 4.1 runtime behaviour.
+        # Please consider rewriting once we move to Rails 5.1.
+        mapped_sql_type =
+          case sql_type
+          when :datetime
+            :date_time
+          when :datetime_point
+            :integer
+          when :enumerable
+            :value
+          else
+            sql_type
+          end.to_s.camelize
 
-      def lookup_column_type(sql_type)
-        # This is copy-pasted from ActiveRecord::BaseWithoutTable, please find another approach.
-        mapped_sql_type = case sql_type
-                          when :datetime
-                            :date_time
-                          when :datetime_point
-                            :integer
-                          when :enumerable
-                            :value
-                          else
-                            sql_type
-                          end.to_s
-                          "::ActiveRecord::Type::#{mapped_sql_type.camelize}".constantize.new
+        "::ActiveRecord::Type::#{mapped_sql_type}".constantize.new
       end
 
       def gettext_translation_for_attribute_name(attribute)
@@ -100,16 +82,7 @@ module ActiveRecord
         if attribute.ends_with?("_id")
           humanize_class_name(attribute)
         else
-          "#{inheritance_class_owner(attribute)}|#{attribute.split('.').map!(&:humanize).join('|')}"
-        end
-      end
-
-      def inheritance_class_owner(attribute)
-        superclass = self.superclass
-        if superclass.attribute_names.include?(attribute)
-          superclass.inheritance_class_owner(attribute)
-        else
-          self
+          "#{self}|#{attribute.split('.').map!(&:humanize).join('|')}"
         end
       end
     end

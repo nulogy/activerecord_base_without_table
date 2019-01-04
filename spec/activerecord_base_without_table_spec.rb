@@ -403,15 +403,10 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
 
         validates_presence_of :name
       end
-
-      class Employee < Person
-        column :salary, :integer
-      end
     end
 
     it 'supports gettext translations for attribute names' do
-      expect(BaseWithoutTableTests::Employee.gettext_translation_for_attribute_name(:salary)).to eq("BaseWithoutTableTests::Employee|Salary")
-      expect(BaseWithoutTableTests::Employee.gettext_translation_for_attribute_name(:name)).to eq("BaseWithoutTableTests::Person|Name")
+      expect(BaseWithoutTableTests::Person.gettext_translation_for_attribute_name(:name)).to eq("BaseWithoutTableTests::Person|Name")
     end
   end
 end
