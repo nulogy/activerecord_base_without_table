@@ -49,10 +49,7 @@ module ActiveRecord
       end
 
       def column(name, sql_type = nil, default = nil, null = true)
-        cast_type = lookup_attribute_type(sql_type)
-        decorated_type = attribute_type_decorations.apply(name, cast_type)
-
-        define_attribute(name.to_s, decorated_type, default: default)
+        attribute name, lookup_attribute_type(sql_type), default: default, null: null
       end
 
       def lookup_attribute_type(sql_type)
