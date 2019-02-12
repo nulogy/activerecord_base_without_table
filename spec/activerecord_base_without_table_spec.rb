@@ -30,10 +30,12 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       # [1] The local timezone has explicitly been configured to be EST.
       # [2] Time columns in Rails 4 have a dummy date of January 1st 2000 attached to
       #     them, and are in UTC: http://engineering.liefery.com/2017/10/25/times-in-rails-5.html
+      # [3] We explicitly configure the spec dummy application to not consider Time columns
+      #     timezone aware.
       expect(instance).to have_attributes(
         created_at: Time.zone.parse('2019-01-01T05:00:00Z'), # see [1]
         due_on: Date.parse('2020-01-01'),
-        start_time: Time.utc(2000, 1, 1, 0, 0, 0), # see [2]
+        start_time: Time.utc(2000, 1, 1, 0, 0, 0), # see [2], [3]
         external_id: 1,
         is_something: true,
         number: BigDecimal('1.2345678901'),
