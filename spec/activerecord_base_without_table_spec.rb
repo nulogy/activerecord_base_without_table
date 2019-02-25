@@ -340,10 +340,17 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     end
 
     it 'supports specification of named SQL bindings' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :model_description, :text
+
+        def self.name
+          'BaseWithoutTableInstance'
+        end
+      end
       Model.create!(description: 'Find me')
       Model.create!(description: 'Ignore me')
 
-      matching_records = Model.find_by_sql([<<-SQL, { description: "Find me" }])
+      matching_records = base_without_table_class.find_by_sql([<<-SQL, { description: "Find me" }])
     SELECT description AS model_description FROM models WHERE description LIKE :description
       SQL
 
@@ -352,10 +359,17 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     end
 
     it 'supports specification of positional SQL bindings' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :model_description, :text
+
+        def self.name
+          'BaseWithoutTableInstance'
+        end
+      end
       Model.create!(description: 'Find me')
       Model.create!(description: 'Ignore me')
 
-      matching_records = Model.find_by_sql([<<-SQL, "Find me"])
+      matching_records = base_without_table_class.find_by_sql([<<-SQL, "Find me"])
     SELECT description AS model_description FROM models WHERE description LIKE ?
       SQL
 
