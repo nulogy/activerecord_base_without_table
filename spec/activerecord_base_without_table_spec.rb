@@ -377,6 +377,26 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
       expect(matching_records.first.model_description).to eq('Find me')
     end
 
+    it 'loads associated records if the foreign key is present in the query' do
+      base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
+        column :model_id, :integer
+        belongs_to :model
+
+        def self.name
+          'BaseWithoutTableInstance'
+        end
+      end
+      model = Model.create!(description: 'Find me')
+      Model.create!(description: 'Ignore me')
+
+      matching_records = base_without_table_class.find_by_sql([<<-SQL, "Find me"])
+        SELECT id AS model_id FROM models WHERE description LIKE ?
+      SQL
+
+      expect(matching_records.length).to eq(1)
+      expect(matching_records.first.model.description).to eq('Find me')
+    end
+
     it 'converts datetime columns to the `Time.zone`' do
       base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
         column :created_at, :datetime
