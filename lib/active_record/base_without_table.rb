@@ -25,6 +25,10 @@ module ActiveRecord
     self.abstract_class = true
 
     class << self
+      def new(args)
+        super(args)
+      end
+
       def connection
         ConnectionAdapters::NullAdapter.new(super)
       end
