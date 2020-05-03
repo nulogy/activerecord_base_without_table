@@ -3,8 +3,6 @@ PATH
   specs:
     activerecord_base_without_table (0.4.0)
       rails (= 5.2.4.2)
-      sprockets (= 3.7.2)
-      sprockets-rails (= 3.2.1)
 
 GEM
   remote: https://rubygems.org/
