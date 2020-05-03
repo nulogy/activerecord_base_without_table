@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.5"
 
-  spec.add_runtime_dependency "rails", "~> 5.2.4"
+  spec.add_runtime_dependency "rails", "5.2.4.2"
   spec.add_runtime_dependency "sprockets", "3.7.2"
   spec.add_runtime_dependency "sprockets-rails", "3.2.1"
 
