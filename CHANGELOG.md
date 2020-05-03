@@ -6,10 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.3.0] - 2020-05-02
+## [0.4.0] - 2020-05-02
 
 #### New Features
 
 - Compatibility with Rails 5.2
-- Share same database credentials as PackManager
-- Added the CHANGELOG
+- Added a CHANGELOG
