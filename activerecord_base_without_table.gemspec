@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "activerecord_base_without_table"
-  spec.version     = "0.4.0"
+  spec.version     = "0.4.1"
   spec.authors     = ["Ryan De Villa", "Alistair McKinnell"]
   spec.email       = ["ryand@nulogy.com", "alistairm@nulogy.com"]
   spec.homepage    = "https://nulogy.com"
@@ -21,14 +21,14 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   spec.test_files = Dir["test/**/*"]
 
-  spec.required_ruby_version = ">= 2.5"
+  spec.required_ruby_version = ">= 2.6"
 
   spec.add_runtime_dependency "rails", "5.2.4.2"
-  spec.add_runtime_dependency "sprockets", "3.7.2"
-  spec.add_runtime_dependency "sprockets-rails", "3.2.1"
 
   spec.add_development_dependency "byebug", "~> 11.1"
   spec.add_development_dependency "pg", "~> 1.2"
   spec.add_development_dependency "rspec", "~> 3.9"
   spec.add_development_dependency "rspec-rails", "~> 3.9"
+  spec.add_development_dependency "rubocop", "~> 0.82"
+  spec.add_development_dependency "rubocop-rspec", "~> 1.39"
 end
