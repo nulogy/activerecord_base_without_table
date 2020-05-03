@@ -17,7 +17,8 @@
 default: &default
   host: localhost
   port: 5432
-  username: postgres
+  username: nulogy
+  password: Nulogy4Ever
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see rails configuration guide

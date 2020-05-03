@@ -1,23 +1,34 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Describe your gem and declare its dependencies:
-Gem::Specification.new do |s|
-  s.name        = "activerecord_base_without_table"
-  s.version     = "0.2.0"
-  s.authors     = ["Ryan De Villa"]
-  s.email       = ["ryand@nulogy.com"]
-  s.homepage    = "https://nulogy.com"
-  s.summary     = "Test harness for BaseWithoutTable migration to Rails 5"
-  s.description = "Test harness for BaseWithoutTable migration to Rails 5"
-  s.license     = "MIT"
+Gem::Specification.new do |spec|
+  spec.name        = "activerecord_base_without_table"
+  spec.version     = "0.4.0"
+  spec.authors     = ["Ryan De Villa", "Alistair McKinnell"]
+  spec.email       = ["ryand@nulogy.com", "alistairm@nulogy.com"]
+  spec.homepage    = "https://nulogy.com"
+  spec.summary     = "Test harness for BaseWithoutTable migration to Rails 5"
+  spec.description = "Test harness for BaseWithoutTable migration to Rails 5"
+  spec.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  spec.metadata = {
+    "homepage_uri" => "https://github.com/nulogy/activerecord_base_without_table",
+    "changelog_uri" => "https://github.com/nulogy/activerecord_base_without_table/blob/master/CHANGELOG.md",
+    "source_code_uri" => "https://github.com/nulogy/activerecord_base_without_table",
+    "bug_tracker_uri" => "https://github.com/nulogy/activerecord_base_without_table/issues"
+  }
 
-  s.add_dependency "rails", "~> 5.1.6"
+  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  spec.test_files = Dir["test/**/*"]
 
-  s.add_development_dependency "pg", "0.18.4"
-  s.add_development_dependency "rspec", "3.5.0"
-  s.add_development_dependency "rspec-rails", "3.5.2"
-  s.add_development_dependency "byebug", "9.0.6"
+  spec.required_ruby_version = ">= 2.5"
+
+  spec.add_runtime_dependency "rails", "~> 5.2.4"
+  spec.add_runtime_dependency "sprockets", "3.7.2"
+  spec.add_runtime_dependency "sprockets-rails", "3.2.1"
+
+  spec.add_development_dependency "byebug", "~> 11.1"
+  spec.add_development_dependency "pg", "~> 1.2"
+  spec.add_development_dependency "rspec", "~> 3.9"
+  spec.add_development_dependency "rspec-rails", "~> 3.9"
 end
