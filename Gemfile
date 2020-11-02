@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in activerecord_base_without_table.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and

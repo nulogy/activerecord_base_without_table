@@ -11,11 +11,11 @@
 module ActiveRecord
   module ConnectionAdapters
     class NullSchemaCache
-      def columns(*args)
+      def columns(*)
         []
       end
 
-      def columns_hash(*args)
+      def columns_hash(*)
         {}
       end
     end

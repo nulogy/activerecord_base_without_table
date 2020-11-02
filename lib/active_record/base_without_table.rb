@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'active_record/attributes_builder_without_table'
-require 'active_record/connection_adapters/null_adapter'
-require 'active_record/connection_adapters/null_schema_cache'
+require "active_record/attributes_builder_without_table"
+require "active_record/connection_adapters/null_adapter"
+require "active_record/connection_adapters/null_schema_cache"
 
 module ActiveRecord
   # Get the power of ActiveRecord models, including validation, without having a
