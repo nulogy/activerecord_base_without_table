@@ -79,7 +79,7 @@ GEM
     parser (2.7.1.2)
       ast (~> 2.4.0)
     pg (1.2.3)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.4.3)
@@ -154,7 +154,7 @@ GEM
     unicode-display_width (1.7.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
 
 PLATFORMS
   ruby
