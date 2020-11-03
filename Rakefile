@@ -21,7 +21,7 @@ begin
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.rspec_opts = "-rbyebug --format documentation"
   end
-rescue LoadError
+rescue LoadError # rubocop:disable Lint/SuppressedException
 end
 
 require "bundler/gem_tasks"

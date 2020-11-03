@@ -1,7 +1,7 @@
 require "spec_helper"
 require "rails_helper"
 
-RSpec.describe ActiveRecord::BaseWithoutTable do
+RSpec.describe "ActiveRecord::BaseWithoutTable" do
   context "when specifying columns" do
     it "allows specification of its own attributes" do
       base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
@@ -108,7 +108,8 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
         end
 
         def arbitrary_condition
-          return if external_id && external_id.even?
+          return if external_id&.even?
+
           errors.add(:external_id, "cannot be odd")
         end
       end
@@ -174,7 +175,6 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
 
         expect(invalid_instance).to_not be_valid
         expect(valid_instance).to be_valid
-
       end
     end
 
@@ -272,7 +272,6 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
 
       expect(base_without_table.model).to eq(model)
     end
-
   end
 
   context "when using ActiveRecord callbacks" do
@@ -310,6 +309,7 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
 
         def default_number_to_0
           return if number
+
           self.number = 0
         end
       end
@@ -410,7 +410,7 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
   end
 
   context "when generating translations" do
-    module BaseWithoutTableTests
+    module BaseWithoutTableTests # rubocop:disable Lint/ConstantDefinitionInBlock
       class Person < ActiveRecord::BaseWithoutTable
         column :name, :text
         column :lucky_number, :integer, 4
@@ -420,7 +420,9 @@ RSpec.describe ActiveRecord::BaseWithoutTable do
     end
 
     it "supports gettext translations for attribute names" do
-      expect(BaseWithoutTableTests::Person.gettext_translation_for_attribute_name(:name)).to eq("BaseWithoutTableTests::Person|Name")
+      translation = BaseWithoutTableTests::Person.gettext_translation_for_attribute_name(:name)
+
+      expect(translation).to eq("BaseWithoutTableTests::Person|Name")
     end
   end
 end

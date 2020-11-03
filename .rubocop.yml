@@ -5,11 +5,10 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.6
 
-# Rubocop and I cannot agree.
 Layout/MultilineMethodCallBraceLayout:
   Enabled: false
 
-Metrics/BlockLength:
+Metrics:
   Enabled: false
 
 Naming/MemoizedInstanceVariableName:
@@ -18,9 +17,6 @@ Naming/MemoizedInstanceVariableName:
 RSpec/AnyInstance:
   Enabled: false
 
-RSpec/ExampleLength:
-  Max: 15
-
 Metrics/LineLength:
   Max: 120
 
@@ -28,6 +24,12 @@ RSpec/DescribeClass:
   Enabled: false
 
 RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/LeakyConstantDeclaration:
   Enabled: false
 
 RSpec/NotToNot:
@@ -57,6 +59,10 @@ Style/Documentation:
 # We can ignore this small performance improvement.
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/NumericLiterals:
+  Exclude:
+    - 'spec/dummy/db/schema.rb'
 
 # No need to mention StandardError.
 Style/RescueStandardError:
