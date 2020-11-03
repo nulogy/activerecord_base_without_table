@@ -3,12 +3,11 @@ $LOAD_PATH.push File.expand_path("lib", __dir__)
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "activerecord_base_without_table"
-  spec.version     = "0.4.2"
+  spec.version     = "0.5.0"
   spec.authors     = ["Ryan De Villa", "Alistair McKinnell"]
   spec.email       = ["ryand@nulogy.com", "alistairm@nulogy.com"]
   spec.homepage    = "https://nulogy.com"
   spec.summary     = "Test harness for BaseWithoutTable migration to Rails 5"
-  spec.description = "Test harness for BaseWithoutTable migration to Rails 5"
   spec.license     = "MIT"
 
   spec.metadata = {
