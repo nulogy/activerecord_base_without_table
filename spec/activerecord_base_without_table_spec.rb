@@ -300,14 +300,14 @@ RSpec.describe "ActiveRecord::BaseWithoutTable" do
       base_without_table_class = Class.new(ActiveRecord::BaseWithoutTable) do
         column :number, :decimal
 
-        before_validation :default_number_to_0
+        before_validation :default_number_to_zero
         validates_numericality_of :number
 
         def self.name
           "BaseWithoutTableInstance"
         end
 
-        def default_number_to_0
+        def default_number_to_zero
           return if number
 
           self.number = 0
