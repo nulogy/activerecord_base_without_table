@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'active_record/attributes_builder_without_table'
-require 'active_record/connection_adapters/null_adapter'
-require 'active_record/connection_adapters/null_schema_cache'
+require "active_record/attributes_builder_without_table"
+require "active_record/connection_adapters/null_adapter"
+require "active_record/connection_adapters/null_schema_cache"
 
 module ActiveRecord
   # Get the power of ActiveRecord models, including validation, without having a
@@ -48,7 +48,7 @@ module ActiveRecord
         _default_attributes.keys.map(&:to_s)
       end
 
-      def column(name, sql_type = nil, default = nil, null = true)
+      def column(name, sql_type = nil, default = nil, _null = true) # rubocop:disable Style/OptionalBooleanParameter
         cast_type = lookup_attribute_type(sql_type)
         decorated_type = attribute_type_decorations.apply(name, cast_type)
 

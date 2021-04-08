@@ -22,7 +22,7 @@
 # time.
 module ActiveRecord
   class AttributesBuilderWithoutTable < SimpleDelegator
-    def build_from_database(values = {}, additional_types = {})
+    def build_from_database(values = {}, _additional_types = {})
       super(values, {})
     end
   end
