@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.7"
 
-  spec.add_runtime_dependency "rails", ">= 5.2.4", "< 6.1"
+  spec.add_runtime_dependency "rails", ">= 5.2.4", "< 7.0"
   spec.add_runtime_dependency "sprockets", "3.7.2"
   spec.add_runtime_dependency "sprockets-rails", "~> 3.2.1"
 
@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "byebug", "~> 11.1"
   spec.add_development_dependency "pg", "~> 1.2"
   spec.add_development_dependency "rspec", "~> 3.10"
-  spec.add_development_dependency "rspec-rails", "~> 4.0"
-  spec.add_development_dependency "rubocop", "~> 1.12"
-  spec.add_development_dependency "rubocop-rspec", "~> 2.2"
+  spec.add_development_dependency "rspec-rails", "~> 5.0"
+  spec.add_development_dependency "rubocop", "~> 1.16"
+  spec.add_development_dependency "rubocop-rspec", "~> 2.4"
 end
