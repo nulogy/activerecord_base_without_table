@@ -3,10 +3,13 @@ require:
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.0
 
 Layout/MultilineMethodCallBraceLayout:
   Enabled: false
+
+Layout/LineLength:
+  Max: 120
 
 Metrics:
   Enabled: false
@@ -16,9 +19,6 @@ Naming/MemoizedInstanceVariableName:
 
 RSpec/AnyInstance:
   Enabled: false
-
-Metrics/LineLength:
-  Max: 120
 
 RSpec/DescribeClass:
   Enabled: false

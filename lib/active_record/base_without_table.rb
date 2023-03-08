@@ -52,21 +52,18 @@ module ActiveRecord
       def column(name, sql_type = nil, default = nil, _null = true)
         define_attribute(name.to_s, decorated_type(name, sql_type), default: default)
       end
+
       # rubocop:enable Style/OptionalBooleanParameter
 
       def decorated_type(name, sql_type)
         cast_type = lookup_attribute_type(sql_type)
 
-        if Rails::VERSION::MINOR >= 1
-          _lookup_cast_type(name, cast_type, {}) # Rails 6.1
-        else
-          attribute_type_decorations.apply(name, cast_type) # Rails 6.0
-        end
+        _lookup_cast_type(name, cast_type, {})
       end
 
       def lookup_attribute_type(sql_type)
         # This is an emulation of the Rails 4.1 runtime behaviour.
-        # Please consider rewriting once we move to Rails 5.1.
+        # Consider rewriting once we move to a more recent Rails.
         mapped_sql_type =
           case sql_type
           when :datetime
