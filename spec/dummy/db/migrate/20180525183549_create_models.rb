@@ -1,4 +1,4 @@
-class CreateModels < ActiveRecord::Migration
+class CreateModels < ActiveRecord::Migration[7.0]
   def change
     create_table :models do |t|
       t.timestamps
