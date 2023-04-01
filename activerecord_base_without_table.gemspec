@@ -3,7 +3,7 @@ $LOAD_PATH.push File.expand_path("lib", __dir__)
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "activerecord_base_without_table"
-  spec.version     = "0.8.0"
+  spec.version     = "0.8.1"
   spec.authors     = ["Ryan De Villa", "Alistair McKinnell"]
   spec.email       = ["ryand@nulogy.com", "alistairm@nulogy.com"]
   spec.homepage    = "https://nulogy.com"

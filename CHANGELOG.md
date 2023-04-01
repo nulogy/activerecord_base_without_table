@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1] - 2023-04-01
+
+- Drop unused null parameter from the column method
+
 ## [0.8.0] - 2023-03-08
 
 Breaking Changes

@@ -48,12 +48,9 @@ module ActiveRecord
         _default_attributes.keys.map(&:to_s)
       end
 
-      # rubocop:disable Style/OptionalBooleanParameter
-      def column(name, sql_type = nil, default = nil, _null = true)
+      def column(name, sql_type = nil, default = nil)
         define_attribute(name.to_s, decorated_type(name, sql_type), default: default)
       end
-
-      # rubocop:enable Style/OptionalBooleanParameter
 
       def decorated_type(name, sql_type)
         cast_type = lookup_attribute_type(sql_type)
