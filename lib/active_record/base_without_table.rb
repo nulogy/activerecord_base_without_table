@@ -21,7 +21,7 @@ module ActiveRecord
   # This model can be used just like a regular model based on a table, except it
   # will never be saved to the database.
   #
-  class BaseWithoutTable < Base
+  class BaseWithoutTable < ActiveRecord::Base
     self.abstract_class = true
 
     class << self
@@ -41,6 +41,7 @@ module ActiveRecord
         subclass.define_singleton_method(:table_name) do
           "activerecord_base_without_table_#{subclass.name}"
         end
+
         super(subclass)
       end
 
@@ -48,35 +49,8 @@ module ActiveRecord
         _default_attributes.keys.map(&:to_s)
       end
 
-      # rubocop:disable Style/OptionalBooleanParameter
-      def column(name, sql_type = nil, default = nil, _null = true)
-        define_attribute(name.to_s, decorated_type(name, sql_type), default: default)
-      end
-
-      # rubocop:enable Style/OptionalBooleanParameter
-
-      def decorated_type(name, sql_type)
-        cast_type = lookup_attribute_type(sql_type)
-
-        _lookup_cast_type(name, cast_type, {})
-      end
-
-      def lookup_attribute_type(sql_type)
-        # This is an emulation of the Rails 4.1 runtime behaviour.
-        # Consider rewriting once we move to a more recent Rails.
-        mapped_sql_type =
-          case sql_type
-          when :datetime
-            :date_time
-          when :datetime_point
-            :integer
-          when :enumerable
-            :value
-          else
-            sql_type
-          end.to_s.camelize
-
-        "::ActiveRecord::Type::#{mapped_sql_type}".constantize.new
+      def column(name, sql_type, default = nil)
+        define_attribute(name.to_s, ActiveRecord::Type.lookup(sql_type), default: default)
       end
 
       def gettext_translation_for_attribute_name(attribute)
