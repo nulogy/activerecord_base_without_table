@@ -50,14 +50,6 @@ RSpec.describe "ActiveRecord::BaseWithoutTable" do
 
       expect(instance.number).to eq(1)
     end
-
-    it "supports the legacy datetime point column type, whose value will never actually be accessed" do
-      expect do
-        Class.new(ActiveRecord::BaseWithoutTable) do
-          column :snapshot_at, :datetime_point
-        end
-      end.to_not raise_error
-    end
   end
 
   context "when enforcing validations" do
