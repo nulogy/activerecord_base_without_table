@@ -1,10 +1,8 @@
 PATH
   remote: ..
   specs:
-    activerecord_base_without_table (0.9.0)
+    activerecord_base_without_table (0.10.0)
       rails (>= 6.1, < 7.1)
-      sprockets (= 3.7.2)
-      sprockets-rails (~> 3.2.1)
 
 GEM
   remote: https://rubygems.org/
@@ -221,6 +219,8 @@ DEPENDENCIES
   rspec-rails (~> 6.0)
   rubocop (~> 1.48)
   rubocop-rspec (~> 2.19)
+  sprockets (~> 3.7.2)
+  sprockets-rails (~> 3.2.1)
 
 BUNDLED WITH
-   2.2.10
+   2.4.8

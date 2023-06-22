@@ -12,3 +12,13 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+group :development, :test do
+  gem "appraisal", "~> 2.4"
+  gem "byebug", "~> 11.1"
+  gem "pg", "~> 1.4"
+  gem "rspec", "~> 3.12"
+  gem "rspec-rails", "~> 6.0"
+  gem "rubocop", "~> 1.48"
+  gem "rubocop-rspec", "~> 2.19"
+end
