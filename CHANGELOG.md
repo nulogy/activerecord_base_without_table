@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2023-06-22
+
+- Remove dependency on sprockets
+
 ## [0.9.0] - 2023-04-04
 
 - Compatibility with Rails 7.0
