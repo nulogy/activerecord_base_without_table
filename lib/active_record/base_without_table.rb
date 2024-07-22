@@ -42,7 +42,7 @@ module ActiveRecord
           "activerecord_base_without_table_#{subclass.name}"
         end
 
-        super(subclass)
+        super
       end
 
       def attribute_names
