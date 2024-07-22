@@ -1,6 +1,7 @@
 .bundle/
 .byebug_history
 .idea/
+Gemfile.lock
 log/*.log
 pkg/
 spec/dummy/.sass-cache
