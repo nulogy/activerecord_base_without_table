@@ -1,9 +1,13 @@
 .bundle/
 .byebug_history
 .idea/
-Gemfile.lock
+.vscode
 log/*.log
 pkg/
+
+Gemfile.lock
+gemfiles/*.gemfile.lock
+
 spec/dummy/.sass-cache
 spec/dummy/db/*.sqlite3
 spec/dummy/db/*.sqlite3-journal
