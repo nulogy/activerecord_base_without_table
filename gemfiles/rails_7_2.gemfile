@@ -5,13 +5,13 @@ source "https://rubygems.org"
 gem "rails", "7.2.2.1"
 
 group :development, :test do
-  gem "appraisal", "~> 2.4"
+  gem "appraisal", "~> 2.5"
   gem "byebug", "~> 11.1"
-  gem "pg", "~> 1.4"
-  gem "rspec", "~> 3.12"
-  gem "rspec-rails", "~> 6.0"
-  gem "rubocop", "~> 1.48"
-  gem "rubocop-rspec", "~> 2.19"
+  gem "pg", "~> 1.5"
+  gem "rspec", "~> 3.13"
+  gem "rspec-rails", "~> 7.1"
+  gem "rubocop", "~> 1.77"
+  gem "rubocop-rspec", "~> 3.6"
 end
 
 gemspec path: "../"
