@@ -15,5 +15,6 @@ rails db:create
 ## Running the specs
 
 ```
+bundle exec appraisal install
 bundle exec appraisal rake
 ```
