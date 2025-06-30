@@ -29,6 +29,10 @@ module ActiveRecord
         ConnectionAdapters::NullAdapter.new(super)
       end
 
+      def schema_cache
+        ActiveRecord::ConnectionAdapters::NullSchemaCache.new
+      end
+
       def attributes_builder
         AttributesBuilderWithoutTable.new(super)
       end
