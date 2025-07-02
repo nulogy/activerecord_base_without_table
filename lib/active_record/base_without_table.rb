@@ -54,7 +54,7 @@ module ActiveRecord
       end
 
       def column(name, sql_type, default = nil)
-        define_attribute(name.to_s, ActiveRecord::Type.lookup(sql_type), default: default)
+        attribute(name.to_s, ActiveRecord::Type.lookup(sql_type), default: default)
       end
 
       def gettext_translation_for_attribute_name(attribute)
