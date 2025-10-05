@@ -29,6 +29,10 @@ module ActiveRecord
         ConnectionAdapters::NullAdapter.new(super)
       end
 
+      def schema_cache
+        ActiveRecord::ConnectionAdapters::NullSchemaCache.new
+      end
+
       def attributes_builder
         AttributesBuilderWithoutTable.new(super)
       end
@@ -50,7 +54,7 @@ module ActiveRecord
       end
 
       def column(name, sql_type, default = nil)
-        define_attribute(name.to_s, ActiveRecord::Type.lookup(sql_type), default: default)
+        attribute(name.to_s, ActiveRecord::Type.lookup(sql_type), default: default)
       end
 
       def gettext_translation_for_attribute_name(attribute)

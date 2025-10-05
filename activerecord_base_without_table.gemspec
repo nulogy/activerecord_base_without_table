@@ -3,7 +3,7 @@ $LOAD_PATH.push File.expand_path("lib", __dir__)
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "activerecord_base_without_table"
-  spec.version     = "0.11.0"
+  spec.version     = "0.12.2"
   spec.authors     = ["Ryan De Villa", "Alistair McKinnell"]
   spec.email       = ["ryand@nulogy.com", "alistairm@nulogy.com"]
   spec.homepage    = "https://nulogy.com"
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   }
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  spec.required_ruby_version = ">= 3.0"
+  spec.required_ruby_version = ">= 3.3"
 
-  spec.add_dependency "rails", ">= 7.0", "< 7.2"
+  spec.add_dependency "rails", ">= 7.1", "< 8.0"
 end
