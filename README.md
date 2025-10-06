@@ -9,7 +9,8 @@ with modifications to make it compatible with more recent versions of Rails.
 
 ```
 cd spec/dummy
-rails db:create
+BUNDLE_GEMFILE=../../Gemfile rails db:create
+BUNDLE_GEMFILE=../../Gemfile rails db:migrate
 ```
 
 ## Running the specs
