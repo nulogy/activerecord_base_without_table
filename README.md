@@ -15,7 +15,9 @@ BUNDLE_GEMFILE=../../Gemfile rails db:migrate
 
 ## Running the specs
 
+Note: update the version of bundler as appropriate.
+
 ```
-bundle exec appraisal install
+bundle _2.7.2_ exec appraisal install
 bundle exec appraisal rake
 ```
