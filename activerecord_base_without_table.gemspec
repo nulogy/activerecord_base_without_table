@@ -21,5 +21,5 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   spec.required_ruby_version = ">= 3.3"
 
-  spec.add_dependency "rails", ">= 7.2", "< 8.0"
+  spec.add_dependency "rails", ">= 7.2", "< 8.1"
 end
