@@ -9,7 +9,8 @@ require "active_record/base_without_table"
 
 module Dummy
   class Application < Rails::Application
-    config.load_defaults Rails::VERSION::STRING.to_f
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 7.1
 
     # These are the settings that PackManager uses.
     config.time_zone = "Eastern Time (US & Canada)"
