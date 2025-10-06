@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.13.0] - 2025-10-06
+
+- Compatibility with Rails 8.0
+
+Breaking Changes
+
+- Drop support for Rails 7.1
+
+## [0.12.0] - 2025-07-02
+
 - Compatibility with Rails 7.2
 
 ## [0.11.0] - 2024-07-22
