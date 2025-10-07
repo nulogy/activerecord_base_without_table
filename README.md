@@ -9,12 +9,15 @@ with modifications to make it compatible with more recent versions of Rails.
 
 ```
 cd spec/dummy
-rails db:create
+BUNDLE_GEMFILE=../../Gemfile rails db:create
+BUNDLE_GEMFILE=../../Gemfile rails db:migrate
 ```
 
 ## Running the specs
 
+Note: update the version of bundler as appropriate.
+
 ```
-bundle exec appraisal install
+bundle _2.7.2_ exec appraisal install
 bundle exec appraisal rake
 ```
