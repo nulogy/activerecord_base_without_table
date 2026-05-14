@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-05-14
+
+- Compatibility with Rails 8.1
+
+Breaking Changes
+
+- Drop support for Rails 7.2
+
 ## [0.13.0] - 2025-10-06
 
 - Compatibility with Rails 8.0
