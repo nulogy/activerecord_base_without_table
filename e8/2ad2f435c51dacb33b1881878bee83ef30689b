@@ -1,0 +1,19 @@
+CHANGELOG.md
+  s_70f5afbdb8b7bb::t_c0c9de65b56fd9 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e82ad2f435c51dacb33b1881878bee83ef30689b",
+  "prompts": {},
+  "sessions": {
+    "s_70f5afbdb8b7bb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0016d227-b50c-4981-83ec-8c892bdae327",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Alistair McKinnell <alistairm@nulogy.com>"
+    }
+  }
+}
